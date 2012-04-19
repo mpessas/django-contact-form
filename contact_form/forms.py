@@ -225,7 +225,11 @@ class ContactForm(forms.Form):
         message_dict = {}
         for message_part in ('from_email', 'message', 'recipient_list', 'subject'):
             attr = getattr(self, message_part)
-            message_dict[message_part] = callable(attr) and attr() or attr
+            value = callable(attr) and attr() or attr
+            func = 'decorate_%s' % message_part
+            if hasattr(self, func):
+                value = getattr(self, func)(value)
+            message_dict[message_part] = value
         return message_dict
 
     @property
