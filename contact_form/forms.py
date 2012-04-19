@@ -145,7 +145,9 @@ class ContactForm(forms.Form):
         widget=forms.TextInput(attrs=dict(attrs_dict, maxlength=200)),
         label=u'Your email address'
     )
-    subject = forms.CharField(max_length=150, widget=forms.TextInput())
+    title = forms.CharField(
+        label=u'Subject', max_length=150, widget=forms.TextInput()
+    )
     body = forms.CharField(
         widget=forms.Textarea(attrs=attrs_dict), label=u'Your message'
     )
