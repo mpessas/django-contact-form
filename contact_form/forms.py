@@ -225,7 +225,19 @@ class ContactForm(forms.Form):
             attr = getattr(self, message_part)
             message_dict[message_part] = callable(attr) and attr() or attr
         return message_dict
-    
+
+    @property
+    def order(self, field_order):
+        """
+        Set the order of the form fields.
+
+        The form must have been initialized.
+
+        :param field_order: A list with the name of the fields in the
+             correct order.
+        """
+        self.fields.keyOrder = field_order
+
     def save(self, fail_silently=False):
         """
         Build and send the email message.
