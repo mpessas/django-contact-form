@@ -64,7 +64,7 @@ class ContactForm(forms.Form):
 
     * ``from_email`` -- used to get the address to use in the
       ``From:`` header of the message. The base implementation returns
-      the value of the ``DEFAULT_FROM_EMAIL`` setting.
+      the value of the ``CONTACT_FROM_EMAIL`` setting.
 
     * ``message`` -- used to get the message body as a string. The
       base implementation renders a template using the form's
@@ -152,7 +152,7 @@ class ContactForm(forms.Form):
         widget=forms.Textarea(attrs=attrs_dict), label=u'Your message'
     )
 
-    from_email = settings.DEFAULT_FROM_EMAIL
+    from_email = settings.CONTACT_FROM_EMAIL
 
     recipient_list = [mail_tuple[1] for mail_tuple in settings.MANAGERS]
 
