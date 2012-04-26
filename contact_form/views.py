@@ -19,9 +19,10 @@ class ContactFormView(FormView):
 
     form_class = ContactForm
     template_name = 'contact_form/contact_form.html'
+    fail_silently = False
 
     def form_valid(self, form):
-        form.save()
+        self.send_email(form)
         return super(ContactFormView, self).form_valid(form)
 
     def get_success_url(self):
@@ -31,6 +32,10 @@ class ContactFormView(FormView):
         kwargs = super(ContactFormView, self).get_form_kwargs()
         kwargs.update({'request': self.request})
         return kwargs
+
+    def send_email(self, form):
+        """Deliver the email."""
+        form.save(fail_silently=self.fail_silently)
 
 
 def contact_form(request, form_class=ContactForm,
