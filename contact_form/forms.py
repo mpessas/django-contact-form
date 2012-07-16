@@ -152,7 +152,9 @@ class ContactForm(forms.Form):
         widget=forms.Textarea(attrs=attrs_dict), label=u'Your message'
     )
 
-    from_email = settings.CONTACT_FROM_EMAIL
+    from_email = getattr(
+        settings, 'CONTACT_FROM_EMAIL', settings.DEFAULT_FROM_EMAIL
+    )
 
     recipient_list = [mail_tuple[1] for mail_tuple in settings.MANAGERS]
 
